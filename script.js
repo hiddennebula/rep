@@ -4,7 +4,7 @@ var pin = '';
 function EnterNumber(number)
 {
 	pin += number ;
-    Render();
+	Render();
 }
 
 function Render()
@@ -45,10 +45,10 @@ function Cancel(){
 }
 
 function Clear(){ 
-    pin= '' ;
-    Render();
+	pin= '' ;
+	Render();
 }
 
 function SendForm() {
-   alert(pin);
+	alert(pin);
 }
