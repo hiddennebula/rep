@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.btn {
+    border: none;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.keyboard {
+	max-width: 240px;
+}
+
+.submit {background-color: #4CAF50;} 
+.submit:hover {background-color: #46a049;}
+
+.cancel {background-color: #ff9800;} 
+.cancel :hover {background: #e68a00;}
+
+.clear {background-color: #f44336;} 
+.clear:hover {background: #da190b;}
+
+.number {background-color: #e7e7e7; color: black;}
+.number:hover {background: #ddd;}
+.brd {
+    border: 4px double black; 
+    background: #ddd; 
+    padding: 14px 28px; 
+   }
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+}   
+</style>
+</head>
+<div>
+<h2>Клавиатура банкомата</h2>
+<p class="brd" id=secret> </p>
+<script type="text/javascript">
+
+var displayedPin = '';
+var pin = '';
+
+function EnterNumber(number)
+{
+	pin += number ;
+    Render();
+}
+
+function Render()
+{
+	displayedPin = pin;
+	var mustBeHidden = document.getElementById('Hide').checked;
+	if (mustBeHidden) {
+		displayedPin = pin.replace(/./gi, '*');
+	}
+	var mustBeShuffled = document.getElementById('Shuffle').checked;
+	if (mustBeShuffled) {
+		Shuffle();
+	}
+	document.getElementById("secret").innerHTML = displayedPin;
+}
+
+function Shuffle()
+{
+	var numericButtons = document.querySelectorAll('.keyboard .number');
+	var buttonsCount = numericButtons.length;
+	if (buttonsCount > 0) {
+		var numbers = [];
+		for (i=0; i < buttonsCount; i++) {
+			numbers.push(i);
+		}
+
+		for (n in numbers) {
+			var newPosition = Math.floor(Math.random() * numericButtons.length);
+			delete numbers[newPosition];
+			numericButtons[newPosition].parentNode.insertBefore(numericButtons[newPosition], numericButtons[n]);
+		}
+	}
+}
+
+function Cancel(){
+	pin =  pin.substring(0, pin.length - 1);
+	Render();
+}
+
+function Clear(){ 
+    pin= '' ;
+    Render();
+}
+
+function SendForm() {
+   alert(pin);
+}
+</script>
+<div class="keyboard">	
+<button type="button"  class="btn number"
+onclick="EnterNumber(1)" id="1"
+>1</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(2)">2</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(3)">3</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(4)">4</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(5)">5</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(6)">6</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(7)">7</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(8)">8</button>
+<button type="button" class="btn number"
+onclick="EnterNumber(9)">9</button>
+<button type="button" class="btn number" 
+onclick="EnterNumber(0)">0</button>
+</div>
+<div>
+<button class="btn cancel" onclick="Cancel()">Cancel</button>
+<button class="btn clear" onclick="Clear()">Clear</button>
+<button class="btn submit" onclick="SendForm()">Submit</button>
+</div>
+Скрыть символы: <input type="checkbox" id="Hide">
+Перемешать цифры: <input type="checkbox" id="Shuffle">
+
+</div>
+</body>
+</html> 
+
